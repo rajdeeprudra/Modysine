@@ -19,15 +19,15 @@ export function HomePage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">10%</div>
-              <p className="text-sm font-medium text-foreground">Cashback on All Orders</p>
+              <div className="text-3xl font-bold text-primary mb-2">100%</div>
+              <p className="text-sm font-medium text-foreground">Cotton</p>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">30</div>
-              <p className="text-sm font-medium text-foreground">Days Easy Returns & Exchanges</p>
+              <div className="text-3xl font-bold text-primary mb-2">FREE Gifts</div>
+              <p className="text-sm font-medium text-foreground">On 5 orders</p>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">FREE</div>
+              <div className="text-3xl font-bold text-primary mb-2">3-5 DAYS</div>
               <p className="text-sm font-medium text-foreground">Fast Shipping on Orders</p>
             </div>
           </div>

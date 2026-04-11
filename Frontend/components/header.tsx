@@ -12,12 +12,16 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-background border-b border-border">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center gap-8">
-          <button
-            onClick={() => setCurrentPage('home')}
-            className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors"
-          >
-            MODYSINE
-          </button>
+  <button
+    onClick={() => setCurrentPage('home')}
+    className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+  >
+    <img 
+      src="/modysine.png" 
+      alt="Modysine Logo" 
+      className="h-20 w-auto"
+    />
+  </button>
           {currentPage === 'home' && (
             <nav className="hidden md:flex items-center gap-6">
               <button className="text-sm font-medium text-foreground hover:text-primary transition-colors">
