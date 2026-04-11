@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const slides = [
   {
-    image: 'https://images.unsplash.com/photo-1595777712583-68ea3d302ead?w=1200&h=600&fit=crop',
+    image: '/demo-crousel-img.jpg',
     title: 'Summer Collection',
     subtitle: 'NEW DROPS 2025',
     cta: 'EXPLORE',
@@ -20,7 +20,7 @@ const slides = [
     bgColor: '#3a3a3a'
   },
   {
-    image: 'https://images.unsplash.com/photo-1502716991957-ffb6fca50914?w=1200&h=600&fit=crop',
+    image: '/t.jpg',
     title: 'Timeless Style',
     subtitle: 'CLASSIC DESIGNS',
     cta: 'DISCOVER',
