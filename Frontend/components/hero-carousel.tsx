@@ -6,25 +6,22 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const slides = [
   {
-    image: '/demo-crousel-img.jpg',
-    title: 'Summer Collection',
-    subtitle: 'NEW DROPS 2025',
-    cta: 'EXPLORE',
-    bgColor: '#2a2a2a'
+    image: '/tshirt-1.jpg',
+    title: 'NEW COLLECTION',
+    subtitle: 'SPRING 2025',
+    cta: 'EXPLORE'
   },
   {
-    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&h=600&fit=crop',
-    title: 'Premium Quality',
-    subtitle: 'FINEST FABRICS',
-    cta: 'SHOP NOW',
-    bgColor: '#3a3a3a'
+    image: '/tshirt-2.jpg',
+    title: 'TIMELESS PIECES',
+    subtitle: 'QUALITY MATTERS',
+    cta: 'SHOP NOW'
   },
   {
-    image: '/t.jpg',
-    title: 'Timeless Style',
-    subtitle: 'CLASSIC DESIGNS',
-    cta: 'DISCOVER',
-    bgColor: '#4a4a4a'
+    image: '/tshirt-3.jpg',
+    title: 'LUXURY MINIMALISM',
+    subtitle: 'CURATED DESIGNS',
+    cta: 'DISCOVER'
   }
 ]
 
@@ -47,7 +44,7 @@ export function HeroCarousel() {
   }
 
   return (
-    <div className="relative w-full h-[500px] md:h-[600px] overflow-hidden bg-background">
+    <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden bg-background">
       {/* Slides */}
       <div className="relative w-full h-full">
         {slides.map((slide, index) => (
@@ -62,53 +59,52 @@ export function HeroCarousel() {
               alt={slide.title}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-black/20" />
           </div>
         ))}
       </div>
 
       {/* Content Overlay */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
         <div className="text-center text-white z-10 px-4">
-          <p className="text-sm md:text-base font-light tracking-widest mb-4 opacity-90">
+          <p className="text-xs md:text-sm font-light tracking-[0.2em] mb-3 opacity-70">
             {slides[currentSlide].subtitle}
           </p>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance">
+          <h1 className="text-3xl md:text-5xl font-light tracking-wider mb-8 text-balance">
             {slides[currentSlide].title}
           </h1>
-          <Button
-            size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
+          <button
+            className="px-8 py-3 bg-primary hover:bg-primary/80 text-primary-foreground text-xs font-light tracking-widest transition-colors duration-300"
           >
             {slides[currentSlide].cta}
-          </Button>
+          </button>
         </div>
       </div>
 
-      {/* Navigation Buttons */}
+      {/* Navigation Arrows - Subtle */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full transition-colors"
+        className="absolute left-6 top-1/2 -translate-y-1/2 z-30 text-white/40 hover:text-white transition-colors"
       >
-        <ChevronLeft className="w-6 h-6" />
+        <ChevronLeft className="w-5 h-5" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full transition-colors"
+        className="absolute right-6 top-1/2 -translate-y-1/2 z-30 text-white/40 hover:text-white transition-colors"
       >
-        <ChevronRight className="w-6 h-6" />
+        <ChevronRight className="w-5 h-5" />
       </button>
 
-      {/* Dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      {/* Dots - Minimalist */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-2 h-2 rounded-full transition-all ${
+            className={`h-px transition-all duration-300 ${
               index === currentSlide
                 ? 'bg-primary w-8'
-                : 'bg-white/50 hover:bg-white/70'
+                : 'bg-white/30 w-3 hover:bg-white/50'
             }`}
           />
         ))}

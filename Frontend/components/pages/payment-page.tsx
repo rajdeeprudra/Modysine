@@ -1,13 +1,12 @@
 'use client'
 
 import { Header } from '@/components/header'
-import { Button } from '@/components/ui/button'
 import { useApp } from '@/lib/context'
 import { useState } from 'react'
 import { ArrowLeft, Smartphone, Banknote } from 'lucide-react'
 
 export function PaymentPage() {
-  const { setCurrentPage, setPaymentMethod, paymentMethod, cart } = useApp()
+  const { setCurrentPage, setPaymentMethod, cart } = useApp()
   const [isProcessing, setIsProcessing] = useState(false)
 
   const subtotal = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
@@ -17,7 +16,6 @@ export function PaymentPage() {
     setIsProcessing(true)
     setPaymentMethod('upi')
     
-    // Simulate Pazorpay redirect
     setTimeout(() => {
       alert('Redirecting to Pazorpay UPI Payment Gateway...\n\nIn a real app, this would redirect to Pazorpay.')
       setIsProcessing(false)
@@ -34,109 +32,82 @@ export function PaymentPage() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
+      <div className="max-w-3xl mx-auto px-6 py-12">
         <button
           onClick={() => setCurrentPage('checkout')}
-          className="flex items-center gap-2 text-primary hover:text-primary/80 mb-8 transition-colors"
+          className="flex items-center gap-2 text-secondary hover:text-foreground mb-12 transition-colors text-xs font-light"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Checkout
+          Back to checkout
         </button>
 
-        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-12">Payment Method</h1>
+        <h1 className="text-3xl md:text-4xl font-light tracking-wide text-foreground mb-12">PAYMENT METHOD</h1>
 
         {/* Order Summary */}
-        <div className="bg-card border border-border rounded-lg p-6 mb-8">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Order Summary</h2>
-          <div className="space-y-2 pb-4 border-b border-border">
+        <div className="border-b border-border mb-12 pb-8">
+          <h2 className="text-sm font-light tracking-widest text-secondary mb-6">ORDER TOTAL</h2>
+          <div className="space-y-3 mb-6">
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Subtotal</span>
-              <span className="text-foreground font-medium">₹{subtotal}</span>
+              <span className="text-secondary font-light">Subtotal</span>
+              <span className="text-foreground font-light">₹{subtotal}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Shipping</span>
-              <span className="text-foreground font-medium">₹90</span>
+              <span className="text-secondary font-light">Shipping</span>
+              <span className="text-foreground font-light">₹90</span>
             </div>
           </div>
-          <div className="flex justify-between text-lg font-bold text-foreground pt-4">
-            <span>Total Amount</span>
-            <span className="text-primary">₹{total}</span>
+          <div className="flex justify-between text-lg">
+            <span className="text-foreground font-light">Total</span>
+            <span className="text-primary font-light">₹{total}</span>
           </div>
         </div>
 
         {/* Payment Methods */}
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Choose Payment Method</h2>
+        <div className="space-y-6">
+          <h2 className="text-sm font-light tracking-widest text-secondary mb-8">SELECT PAYMENT METHOD</h2>
 
           {/* UPI Payment */}
           <button
             onClick={handleUPIPayment}
             disabled={isProcessing}
-            className={`w-full p-6 border-2 rounded-lg transition-all ${
-              paymentMethod === 'upi'
-                ? 'border-primary bg-secondary'
-                : 'border-border hover:border-primary'
-            } disabled:opacity-50 disabled:cursor-not-allowed`}
+            className="w-full border border-border hover:border-primary bg-card hover:bg-muted transition-all p-8 group disabled:opacity-50"
           >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                <Smartphone className="w-6 h-6 text-primary" />
-              </div>
+            <div className="flex items-start gap-4">
+              <Smartphone className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
               <div className="text-left flex-1">
-                <h3 className="font-semibold text-foreground">Pay via UPI</h3>
-                <p className="text-sm text-muted-foreground">Quick and secure UPI payment</p>
+                <h3 className="text-sm font-light text-foreground mb-2">Pay via UPI</h3>
+                <p className="text-xs text-secondary font-light leading-relaxed">
+                  Secure payment via UPI through Pazorpay gateway. Quick and easy payment using your phone.
+                </p>
               </div>
-              {paymentMethod === 'upi' && <div className="w-5 h-5 rounded-full border-2 border-primary bg-primary" />}
+              {isProcessing && (
+                <div className="animate-spin">
+                  <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full"></div>
+                </div>
+              )}
             </div>
           </button>
 
           {/* Cash on Delivery */}
           <button
-            onClick={() => setPaymentMethod('cod')}
-            className={`w-full p-6 border-2 rounded-lg transition-all ${
-              paymentMethod === 'cod'
-                ? 'border-primary bg-secondary'
-                : 'border-border hover:border-primary'
-            }`}
+            onClick={handleCODPayment}
+            className="w-full border border-border hover:border-primary bg-card hover:bg-muted transition-all p-8 group"
           >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                <Banknote className="w-6 h-6 text-primary" />
-              </div>
+            <div className="flex items-start gap-4">
+              <Banknote className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
               <div className="text-left flex-1">
-                <h3 className="font-semibold text-foreground">Cash on Delivery</h3>
-                <p className="text-sm text-muted-foreground">Pay when you receive your order</p>
+                <h3 className="text-sm font-light text-foreground mb-2">Cash on Delivery</h3>
+                <p className="text-xs text-secondary font-light leading-relaxed">
+                  Pay when your order arrives. No advance payment required. Available for selected areas.
+                </p>
               </div>
-              {paymentMethod === 'cod' && <div className="w-5 h-5 rounded-full border-2 border-primary bg-primary" />}
             </div>
           </button>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-4 mt-12">
-          <Button
-            onClick={() => setCurrentPage('checkout')}
-            variant="outline"
-            className="flex-1 py-6"
-          >
-            Back
-          </Button>
-          <Button
-            onClick={() => {
-              if (paymentMethod === 'upi') {
-                handleUPIPayment()
-              } else if (paymentMethod === 'cod') {
-                handleCODPayment()
-              } else {
-                alert('Please select a payment method')
-              }
-            }}
-            disabled={!paymentMethod || isProcessing}
-            className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-6 font-semibold disabled:opacity-50"
-          >
-            {isProcessing ? 'Processing...' : 'Continue to Payment'}
-          </Button>
-        </div>
+        <p className="text-xs text-secondary text-center mt-12 font-light">
+          All payments are secure and encrypted
+        </p>
       </div>
     </div>
   )

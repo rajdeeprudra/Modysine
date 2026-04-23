@@ -31,23 +31,26 @@ interface AppContextType {
   addToCart: (product: Product, quantity: number) => void
   removeFromCart: (productId: string) => void
   clearCart: () => void
-  currentPage: 'home' | 'checkout' | 'payment' | 'confirmation' | 'admin'
-  setCurrentPage: (page: 'home' | 'checkout' | 'payment' | 'confirmation' | 'admin') => void
+  currentPage: 'home' | 'checkout' | 'payment' | 'confirmation' | 'admin' | 'product-detail'
+  setCurrentPage: (page: 'home' | 'checkout' | 'payment' | 'confirmation' | 'admin' | 'product-detail') => void
   orderDetails: OrderDetails | null
   setOrderDetails: (details: OrderDetails) => void
   products: Product[]
   addProduct: (product: Product) => void
   paymentMethod: 'upi' | 'cod' | null
   setPaymentMethod: (method: 'upi' | 'cod') => void
+  selectedProductId: string | null
+  setSelectedProductId: (id: string | null) => void
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([])
-  const [currentPage, setCurrentPage] = useState<'home' | 'checkout' | 'payment' | 'confirmation' | 'admin'>('home')
+  const [currentPage, setCurrentPage] = useState<'home' | 'checkout' | 'payment' | 'confirmation' | 'admin' | 'product-detail'>('home')
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null)
   const [paymentMethod, setPaymentMethod] = useState<'upi' | 'cod' | null>(null)
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
   const [products, setProducts] = useState<Product[]>([
     {
       id: '1',
@@ -113,6 +116,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         addProduct,
         paymentMethod,
         setPaymentMethod,
+        selectedProductId,
+        setSelectedProductId,
       }}
     >
       {children}
