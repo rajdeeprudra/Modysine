@@ -15,7 +15,8 @@ datasource db {
 model User {
   id          String @id @default(uuid())
   name        String
-  role        Role @default(ADMIN)
+  role        Role @default(USER)
+  password    String?
   email       String @unique
   phoneNo     String
   address     String
