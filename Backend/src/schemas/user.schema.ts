@@ -31,7 +31,7 @@ export const userSchema = z.object({
 
         zipcode: z.string().trim().min(5),  
 
-        phoneNumber: z.string()
+        phoneNo: z.string()
                     .length(10,"phone number must be of 10 characters")
                     .regex(/^[0-9]+$/, "Phone Number can olny be numbers")
 
