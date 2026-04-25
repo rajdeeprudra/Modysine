@@ -47,7 +47,7 @@ model ProductVariant{
   productId          String
   size               String
   color              String
-  stoctCount         Int
+  stockCount         Int
   product            Product     @relation(fields: [productId], references:  [id], onDelete: Cascade)
   orderItems         OrderItem[]
 }

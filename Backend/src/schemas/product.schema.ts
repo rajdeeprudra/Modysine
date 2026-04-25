@@ -44,6 +44,8 @@ export const productSchema = z.object({
                .positive("Price must be a positive number"),
         
         isActive: z.boolean().optional(),
+        stockCount:z.number().int().nonnegative().default(10),
+        color: z.string().trim().min(1)
     })
         
         
@@ -51,3 +53,11 @@ export const productSchema = z.object({
 
 // inferred type to use it in controllers
 export type productInput = z.infer<typeof productSchema>['body'];
+
+export const getProductParamsSchema = z.object({
+  params: z.object({
+    id: z.string().uuid("Invalid product ID format"),
+  })
+});
+
+export type GetProductParams = z.infer<typeof getProductParamsSchema>['params'];
