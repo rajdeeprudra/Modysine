@@ -81,8 +81,8 @@ export const createProduct = async(req:Request<{},{}, productInput>, res:Respons
     });
     
 }catch(error){
-    console.error("failed to create product");
-    res.status(500).json({error: "Failed to create product"})
+    console.error("failed to create product", error);
+    res.status(500).json({error: "Failed to create product"});
 }
     
 }
