@@ -1,19 +1,17 @@
-import type { Request,Response,NextFunction } from "express";
-import type { AnyZodObject } from "zod/v3";
+import type{ Request, Response, NextFunction, RequestHandler } from 'express';
+import type{ ZodSchema } from 'zod'; // Import the specific Zod type
 
-
-export const validate = (schema:AnyZodObject)=>{
-    async(req:Request, res:Response, next:NextFunction)=>{
-        try{
-            await schema.parseAsync({
-                body:req.body,
-                query:req.query,
-                params:req.params
-            }) ;
-            
-            return next();
-        }catch(error){
-            return res.status(500).json(error);
-        }
+export const validate = (schema: ZodSchema): RequestHandler => {
+  return async (req:Request, res:Response, next:NextFunction) => {
+    try {
+      await schema.parseAsync({
+        body: req.body,
+        query: req.query,
+        params: req.params,
+      });
+      next(); 
+    } catch (error) {
+      res.status(400).json(error);
     }
-}
+  };
+};

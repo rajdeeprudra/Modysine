@@ -1,15 +1,34 @@
 import express from 'express';
+import productRoutes from './routes/product.routes';
 
 const app = express();
+app.use(express.json());
 
 const PORT = 4000;
 
-app.get("/health", (req,res)=>{
-    res.json({
-        msg:"ALL OK NIGGA MOVE!"
-    })
-})
 
 
-app.listen(PORT);
+const v1Router = express.Router();
+
+v1Router.use("/products", productRoutes);
+
+
+app.use("/api/v1", v1Router);
+
+
+
+v1Router.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "success",
+    message: "Modysine Server is healthy and running 🚀",
+    timestamp: new Date().toISOString(),
+    uptime: Math.floor(process.uptime()) + " seconds"
+  });
+});
+
+
+
+app.listen(PORT, () => {
+  console.log(`🚀 Modysine API V1 is live at: http://localhost:${PORT}/api/v1`);
+});
 

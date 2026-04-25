@@ -49,7 +49,7 @@ export const getOneProduct = async(req:Request, res:Response)=> {
 
 //create a product (for Admin use only)
 
-export const createProduct = async(req:Request<{},{}, productInput>, res:Response)=> {
+export const createProduct = async(req:Request<{},{}, productInput>, res:Response): Promise<any>=> {
    try{
     const {name, description, price, images, isActive, color, stockCount} = req.body;
     
