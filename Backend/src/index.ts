@@ -1,4 +1,5 @@
 import express from 'express';
+import "dotenv/config";
 import productRoutes from './routes/product.routes';
 import userRoutes from './routes/user.routes';
 
@@ -27,6 +28,7 @@ v1Router.get("/health", (req, res) => {
   });
 });
 
+console.log('DB_PASSWORD type:', typeof process.env.DATABASE_URL);
 
 
 app.listen(PORT, () => {
