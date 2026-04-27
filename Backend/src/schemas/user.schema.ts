@@ -49,3 +49,15 @@ export const userSchema = z.object({
 });
 
 export type CreateUserInput = z.infer<typeof userSchema>['body'];
+
+export const loginUserSchema = z.object({
+    body:z.object({
+        email:z.string()
+                .trim()
+                .regex(strictEmailRegex,"please enter your valid email"),
+        password: z.string()
+                   .min(8, "Password should of minimim 8 characters")
+                   .regex(strictPasswordRegex,"Password should Contain atleast One uppercase[A-Z], one Lowercase[a-z], one speacial character [@$!%*?&] and one number[0-9]"),
+
+    })
+})
