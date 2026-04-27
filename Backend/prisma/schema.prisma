@@ -24,6 +24,8 @@ model User {
   zipcode     String
   orders      Order[] 
   createdAt   DateTime @default(now()) 
+  loginOtp    String?
+  loginOtpExpiry DateTime?
 }
 
 enum Role{
