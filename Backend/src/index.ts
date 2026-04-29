@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import productRoutes from './routes/product.routes';
 import userRoutes from './routes/user.routes';
 import uploadRoutes from "./routes/upload.routes";
-
+import orderRoutes from "./routes/order.routes";
 const app = express();
 
 app.use(cookieParser());
@@ -21,6 +21,8 @@ const v1Router = express.Router();
 v1Router.use("/products", productRoutes);
 v1Router.use("/user", userRoutes);
 v1Router.use("/upload", uploadRoutes);
+v1Router.use("/order", orderRoutes);
+
 
 
 //versions
