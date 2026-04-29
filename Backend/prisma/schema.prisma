@@ -72,6 +72,12 @@ model Order{
   shippingAddress   Json
   trackingId        String?
   orderItems        OrderItem[]
+  razorpayOrderId   String?
+  razorpayPaymentId String?
+  razorpaySignature String?
+  isPaid            Boolean     @default(false)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
 }
 
 model OrderItem{
