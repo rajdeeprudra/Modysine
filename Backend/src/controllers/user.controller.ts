@@ -122,7 +122,7 @@ export const requestLoginOtp = async(req:Request, res:Response)=>{
             });
         }
 
-        //generating a 6b digit otp
+        //generating a 6 digit otp
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
         // set expiration as 5 minutes
