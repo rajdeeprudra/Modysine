@@ -3,6 +3,7 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import productRoutes from './routes/product.routes';
 import userRoutes from './routes/user.routes';
+import uploadRoutes from "./routes/upload.routes";
 
 const app = express();
 
@@ -15,12 +16,18 @@ const PORT = 4000;
 
 const v1Router = express.Router();
 
+
+//Routes
 v1Router.use("/products", productRoutes);
 v1Router.use("/user", userRoutes);
+v1Router.use("/upload", uploadRoutes);
 
+
+//versions
 app.use("/api/v1", v1Router);
 
 
+//Health Check
 
 v1Router.get("/health", (req, res) => {
   res.status(200).json({

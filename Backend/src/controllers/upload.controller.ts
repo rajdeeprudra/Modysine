@@ -4,13 +4,13 @@ import cloudinary from "../config/cloudinary";
 export const uploadImage = async(req:Request, res:Response)=>{
     try{
         if(!req.file){
-            res.status(404).json({error:"Error image file not found"});
+           return res.status(404).json({error:"Error image file not found"});
         }
 
         //cloudinary can only read base64 string, so we gotta change this file to a base64 string
 
-        const b64 = Buffer.from(req.body.file).toString("base64");
-        const dataURI = "data:" + req.body.file.mimetype + ";base64," + b64;
+        const b64 = Buffer.from(req.file.buffer).toString("base64");
+        const dataURI = "data:" + req.file.mimetype + ";base64," + b64;
 
         const result = await cloudinary.uploader.upload(dataURI, {
         folder: "modysine_products",
