@@ -5,7 +5,7 @@ export const createOrderSchema = z.object({
   body: z.object({
     items: z.array(
       z.object({
-        variantId: z.string().uuid("Invalid Variant ID format"),
+        variantId: z.string(),
         quantity: z.number().int().positive("Quantity must be at least 1"),
       })
     ).min(1, "Your cart cannot be empty"),

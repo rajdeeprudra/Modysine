@@ -11,7 +11,7 @@ export const baseUserFields = z.object({
     .min(6, "username must be atleast 6 characters")
     .max(25, "username can not be more than 25 characters")
     .trim()
-    .regex(/^[a-zA-Z]+$/, "Username can only contain letters"),
+    .regex(/^[a-zA-Z\s]+$/, "Username can only contain letters"),
 
   email: z.string()
     .trim()

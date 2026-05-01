@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+import { razorpay } from "../config/razorpay";
 import { prisma }  from '../../db'
 
 //const prisma = new PrismaClient();
@@ -79,6 +80,27 @@ export const createOrder = async(req:Request, res:Response)=>{
         });
 
 
+        const razorpayOptions = {
+            amount:  Math.round(calculatedTotal*100),
+            currency: "INR",
+            receipt: newOrder.id,
+        };
+
+        const razorpayOrder = await razorpay.orders.create(razorpayOptions);
+
+        await prisma.order.update({
+            where: {id:newOrder.id},
+            data:{razorpayOrderId:razorpayOrder.id},
+        });
+
+        res.status(201).json({
+            message:"Order created Successfully. Ready for payment.",
+            order: newOrder,
+            razorpayOrderId: razorpayOrder.id,
+            amount : razorpayOptions.amount,
+            currency: razorpayOptions.currency
+
+        });
     }catch(error){
         console.log("Order Creation error: ", error);
         res.status(500).json({error:"Failed to create order"});

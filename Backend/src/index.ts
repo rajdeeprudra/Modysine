@@ -1,5 +1,6 @@
 import express from 'express';
 import "dotenv/config";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import productRoutes from './routes/product.routes';
 import userRoutes from './routes/user.routes';
@@ -12,6 +13,10 @@ const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors({
+  origin: "http://localhost:3000", // Tell Express to trust your Next.js frontend!
+  credentials: true, // This is important if you use cookies later
+}));
 
 const PORT = 4000;
 
@@ -24,7 +29,7 @@ const v1Router = express.Router();
 v1Router.use("/products", productRoutes);
 v1Router.use("/user", userRoutes);
 v1Router.use("/upload", uploadRoutes);
-v1Router.use("/order", orderRoutes);
+v1Router.use("/orders", orderRoutes);
 
 
 

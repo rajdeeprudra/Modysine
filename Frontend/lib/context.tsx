@@ -2,6 +2,16 @@
 
 import React, { createContext, useContext, useState } from 'react'
 
+// NEW 1: Added the CustomerDetails type to match your backend Zod schema perfectly
+export interface CustomerDetails {
+  name: string
+  email: string
+  phoneNo: string
+  address: string
+  city: string
+  zipcode: string
+}
+
 export interface Product {
   id: string
   name: string
@@ -41,6 +51,10 @@ interface AppContextType {
   setPaymentMethod: (method: 'upi' | 'cod') => void
   selectedProductId: string | null
   setSelectedProductId: (id: string | null) => void
+  
+  // NEW 2: Added the context definitions so other files can see them
+  customerDetails: CustomerDetails | null
+  setCustomerDetails: (details: CustomerDetails | null) => void
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
@@ -51,10 +65,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null)
   const [paymentMethod, setPaymentMethod] = useState<'upi' | 'cod' | null>(null)
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
+  
+  // NEW 3: Added the actual state hook to hold the guest's info during checkout
+  const [customerDetails, setCustomerDetails] = useState<CustomerDetails | null>(null)
+
   const [products, setProducts] = useState<Product[]>([
     {
-      id: '1',
-      name: 'Classic Pink T-Shirt',
+      id: '6966366c-ce46-4cb3-a69e-5d5008ec03fb',
+      name: 'Classic Black Tshirt',
       description: 'Premium quality pink t-shirt perfect for summer',
       price: 599,
       images: ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop', 'https://images.unsplash.com/photo-1522286052049-147daebab35d?w=500&h=500&fit=crop', 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop', 'https://images.unsplash.com/photo-1556821552-5ff63b1ce4f2?w=500&h=500&fit=crop']
@@ -118,6 +136,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setPaymentMethod,
         selectedProductId,
         setSelectedProductId,
+        
+        // NEW 4: Exporting them so PaymentPage can access them
+        customerDetails,
+        setCustomerDetails
       }}
     >
       {children}
